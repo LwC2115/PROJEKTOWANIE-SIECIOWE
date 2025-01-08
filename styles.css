@@ -7,7 +7,7 @@
         position: absolute;
         top: 10px;
         right: 10px;
-        background-color: rgba(255, 255, 255, 0.9); /* Lekko przezroczyste tło */
+        background-color: rgba(255, 255, 255, 1); /* Lekko przezroczyste tło */
         padding: 10px;
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -21,6 +21,23 @@
         grid-gap: 10px; /* Odstęp pomiędzy komórkami */
 }
     
+#status-box2 {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(255, 255, 255, 1); /* Lekko przezroczyste tło */
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    z-index: 1000;
+    width: 300px;
+    height: 150px;
+    display: grid; /* Użycie grid layout */
+    grid-template-columns: 1fr 1fr; /* Dwie kolumny */
+    grid-template-rows: auto auto; /* Dwa wiersze */
+    grid-gap: 10px; /* Odstęp pomiędzy komórkami */
+}
 .column {
         padding: 5px;
 }
