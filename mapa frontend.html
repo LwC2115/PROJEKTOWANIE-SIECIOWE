@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Quiz z geografii</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.umd.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.css" rel="stylesheet" />
+    <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
+    <link rel="stylesheet" href="styles.css">
+
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div id="map"></div>
+    <div id="click-count">Punkty: 0</div>
+    <div id="status-box">
+        <div class="column"id ="result"> </div>
+        <div class="column" id="country-name">Kliknij na kraj!</div>
+        <div class="column" id="points">Punkty: 0</div>
+    </div>
+    <div id="result"></div> <!-- Miejsce na wynik gry -->
+
+    <script src="script.js"></script>
+</body>
+</html>
