@@ -1,11 +1,12 @@
-let score=0;
-let scorePlayer1 = 0;
-let scorePlayer2 = 0;
-let currentPlayerIs1=true;
-let currentCountry = null;  // Aktualnie wybrany kraj do kliknięcia
+const scores ={1: 0, 2:0}
+let currentPlayer=1;
 let timeoutId;
 let layer;
 const correctSound = new Audio('./correct-sound.mp3');
+let currentCountry ;
+let gameActive = true; 
+let drawnCountries = [];
+
 
 const map = L.map('map', {
     center: [44.550637, 20.562380], // Współrzędne dla centrum mapy
@@ -34,9 +35,9 @@ fetch('./geojson.json')
   .then(geojson => {
     const countriesList = geojson.features.map(feature => feature.properties.name);
     
-    currentCountry = getRandomCountry(countriesList);
-    document.getElementById('country-name').innerText = `Kliknij na: ${currentCountry}`;
-    
+    let currentCountry = getRandomCountry(countriesList);
+    document.getElementById('country-name1').innerText = `Kliknij na: ${currentCountry}`;
+
     layer = L.geoJSON(geojson, {
       style: function () {
         return {
@@ -45,24 +46,42 @@ fetch('./geojson.json')
           weight: 0 
         };
       },
+
       onEachFeature: function (feature, layer) {
         layer.on('click', function () {
+          if (!gameActive) return;
           const clickedCountry = feature.properties.name;
-          if (clickedCountry === currentCountry) {
-            if(currentPlayerIs1=true)
-            score++;
-            currentCountry = getRandomCountry(countriesList); 
-            document.getElementById('points').innerText = `Punkty: ${score}`;
-            document.getElementById('country-name').innerText = `Kliknij na: ${currentCountry}`;
-            document.getElementById('result').innerText = `Dobra odpowiedź! Kliknąłeś na ${clickedCountry}.`;
-            document.getElementById('result').style.color = 'green';  // Zmieniamy kolor tekstu na zielony
-            highlightCountry(layer, true);
-            correctSound.play();
-          } else {
-            document.getElementById('result').innerText = `Błąd! Kliknąłeś na ${clickedCountry}.`;
-            document.getElementById('result').style.color = 'red';  // Zmieniamy kolor tekstu na czerwony
-            highlightCountry(layer, false);
-        }
+
+          if (clickedCountry === currentCountry){
+            scores[currentPlayer]++;
+            document.getElementById('result'+currentPlayer).innerText ="Poprawna odpowiedź!"
+            document.getElementById('result'+currentPlayer).style.color = 'green';
+            document.getElementById('points'+currentPlayer).innerText =`Punkty: ${scores[currentPlayer]}`;            
+            highlightCountry(layer, true)
+
+            if (scores[currentPlayer] === 5) {
+              document.getElementById('country-name1').innerText = `Gratulacje! Gracz ${currentPlayer} wygrał!!`;
+              document.getElementById('country-name2').innerText = "Gra zakończona.";
+              gameActive = false;  // Kończymy grę
+              return;
+            }
+
+            currentCountry = getRandomCountry(countriesList);
+            document.getElementById('country-name'+currentPlayer).innerText = `Kliknij na: ${currentCountry}!!`; 
+           
+          }
+          else{
+            document.getElementById('result'+currentPlayer).innerText =`Błędna odpowiedź, zaznaczyłeś ${clickedCountry}!!`;
+            document.getElementById('result'+currentPlayer).style.color = 'red';
+            document.getElementById('country-name'+currentPlayer).innerText = `Tura przeciwnika, poczekaj na swoja ture!!`; 
+            currentPlayer = currentPlayer === 1 ? 2 : 1;
+            currentCountry = getRandomCountry(countriesList);
+            document.getElementById('country-name'+currentPlayer).innerText = `Kliknij na: ${currentCountry}`;
+            highlightCountry(layer, false)
+          }
+       
+      
+
         });
       }
     }).addTo(map);
@@ -77,20 +96,19 @@ fetch('./geojson.json')
 
 // Funkcja do losowania kraju
 function getRandomCountry(countriesList) {
-  const randomIndex = Math.floor(Math.random() * countriesList.length);
-  return countriesList[randomIndex];
+  let availableCountries = countriesList.filter(country => !drawnCountries.includes(country));
+  
+  if (availableCountries.length === 0) {
+    drawnCountries = [];  // Resetowanie, jeśli wszystkie kraje zostały już wylosowane
+    availableCountries = countriesList.slice();
+  }
+
+  const randomIndex = Math.floor(Math.random() * availableCountries.length);
+  const selectedCountry = availableCountries[randomIndex];
+  drawnCountries.push(selectedCountry);  // Dodajemy kraj do listy już wylosowanych
+  return selectedCountry;
 }
 
-function switchPlayer() {
-    currentPlayer = currentPlayer === 1 ? 2 : 1;
-    document.getElementById('status-box').innerText = `Gracz ${currentPlayer}'s tura!`;
-}
-
-function updateCountry() {
-    currentCountry = getRandomCountry(countriesList);
-    document.getElementById('country-name').innerText = `Kliknij na: ${currentCountry}`;
-    document.getElementById('result').innerText = `Gracz ${currentPlayer} - czekaj na swój ruch!`;
-}
 
 function highlightCountry(layer, isCorrect) {
     if (isCorrect) {
@@ -105,7 +123,7 @@ function highlightCountry(layer, isCorrect) {
         timeoutId = setTimeout(function () {
             resetMap(); // Resetowanie mapy po 3 sekundach
         }, 500);
-        
+        correctSound.play();
     }
     
     else {
@@ -113,18 +131,24 @@ function highlightCountry(layer, isCorrect) {
             fillColor: 'red',
             fillOpacity: 0.7
         });
+       resetMap();
        
     }
 }
 
 function resetMap() {
-    // Resetowanie wszystkich krajów
+  if (timeoutId) {
+    clearTimeout(timeoutId);  // Wyczyść poprzedni timeout
+  }
+  timeoutId = setTimeout(function () {
     layer.eachLayer(function (layer) {
-        layer.setStyle({
-            fillColor: 'transparent',
-            fillOpacity: 0
-        });
-    });
+      layer.setStyle({
+        fillColor: 'transparent',
+        fillOpacity: 0
+      });
+    }); 
+  }, 500);
+ 
 }
 
 
