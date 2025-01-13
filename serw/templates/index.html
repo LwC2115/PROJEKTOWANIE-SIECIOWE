@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Quiz z geografii</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.umd.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.css" rel="stylesheet" />
+    <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+    <link rel="stylesheet" href="/static/styles.css">
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div id="map"></div> <!-- Zwiększenie wysokości mapy -->
+    
+    <!-- Status box dla Gracza 2 -->
+    <div id="status-box">
+        <!-- <button id ="joinPlayer2" onclick="joinGame(2)">Dołącz jako gracz 2</button> -->
+        <div class="column" id="playerName2">Czekam na gracza...</div>
+        <div class="column" id="result2"></div>
+        <div class="column" id="country-name2"></div>
+        <div class="column" id="points2">Punkty: 0</div>
+    </div>
+
+    <!-- Status box dla Gracza 1 -->
+    <div id="status-box2">
+        <!-- <button id ="joinPlayer1" onclick="joinGame(1)">Dołącz jako gracz 1</button> -->
+        <div class="column" id="playerName1">Czekam na gracza...</div>
+        <div class="column" id="result1"></div>
+        <div class="column" id="country-name1"></div>
+        <div class="column" id="points1">Punkty: 0</div>
+    </div>
+    
+    
+    <script src="/static/script.js"></script> <!-- Twój plik JS, który zawiera całą logikę gry -->
+</body>
+</html>

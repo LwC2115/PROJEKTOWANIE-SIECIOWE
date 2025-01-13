@@ -1,0 +1,152 @@
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+} /* Pełna szerokość i wysokość mapy */
+
+/* Globalne style dla status boxów */
+#status-box, #status-box2 {
+    position: absolute;
+    top: 1px;
+    background-color: rgba(255, 255, 255, 1); /* Lekko przezroczyste tło */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    z-index: 1000;
+    width: 350px;
+    height: auto;
+    display: flex; /* Użycie grid layout */
+    flex-direction: column; /* Elementy w jednej kolumnie */
+    gap: 10px; /* Odstęp między elementami */
+}
+
+/* Pozycjonowanie poszczególnych status boxów */
+#status-box {
+    right: 10px; /* Gracz 2 z prawej */
+}
+
+#status-box2 {
+    left: 0px; /* Gracz 1 z lewej */
+}
+
+/* Styl dla kolumn w status boxach */
+.column {
+    padding: 5px;
+    display: flex;
+    align-items: center; /* Wyrównanie elementów w pionie */
+    justify-content: flex-start; /* Wyrównanie elementów do lewej */
+    color: white; /* Kolor tekstu dla lepszej widoczności */
+    font-weight: bold;
+}
+
+
+
+/* Wyróżnienie status boxa Gracza 1 */
+#status-box2 {
+    background-color: #4CAF50; /* Zielony dla Gracza 1 */
+    border: 2px solid #388E3C;
+}
+
+/* Wyróżnienie status boxa Gracza 2 */
+#status-box {
+    background-color: #FF9800; /* Pomarańczowy dla Gracza 2 */
+    border: 2px solid #F57C00;
+}
+
+
+/* Dodatkowy efekt dla status boxów */
+#status-box, #status-box2 {
+    font-family: Arial, sans-serif;
+    z-index: 1000;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.highlight-false, .highlight-true {
+    font-weight: bold;
+    text-decoration: underline; /* Dodaj podkreślenie, jeśli chcesz */
+    font-size: 20px;
+    margin: 0 5px; /* Alternatywnie: dodanie marginesów wokół */
+}
+
+.highlight-false{
+color: red; /* Możesz zmienić na inny kolor */
+}
+.highlight-true{
+color: rgb(72, 113, 7); /* Możesz zmienić na inny kolor */
+}
+.highlight{
+    font-weight: bold;
+    text-decoration: underline; /* Dodaj podkreślenie, jeśli chcesz */
+    font-size: 20px;
+    margin: 0 5px; /* Alternatywnie: dodanie marginesów wokół */
+}
+
+
+
+/* Styl dla przycisku */
+#joinPlayer2 {
+    background-color: #FF9800; /* Pomarańczowy kolor tła */
+    border: 2px solid #F57C00; /* Granatowa obwódka */
+    color: white; /* Biały kolor tekstu */
+    font-size: 16px; /* Rozmiar czcionki */
+    padding: 10px 20px; /* Marginesy wewnętrzne */
+    border-radius: 8px; /* Zaokrąglone rogi */
+    cursor: pointer; /* Wskaźnik zmienia się na "rękę" po najechaniu */
+    transition: all 0.3s ease; /* Animacja przycisku */
+    font-family: Arial, sans-serif; /* Czcionka */
+    margin-top: 20px; /* Odstęp od innych elementów */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Lekki cień */
+}
+
+/* Efekt przycisku po najechaniu */
+#joinPlayer2:hover {
+    background-color: #FF5722; /* Jaśniejszy pomarańczowy */
+    border-color: #E64A19; /* Jaśniejsza obwódka */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Większy cień */
+}
+
+/* Efekt po kliknięciu przycisku */
+#joinPlayer2:active {
+    background-color: #E64A19; /* Ciemniejszy pomarańczowy */
+    border-color: #D32F2F; /* Ciemniejsza obwódka */
+    box-shadow: none; /* Brak cienia */
+}
+
+/* Styl dla przycisku Gracza 1 */
+#joinPlayer1 {
+    background-color: #4CAF50; /* Zielony kolor tła */
+    border: 2px solid #388E3C; /* Zielona obwódka */
+    color: white; /* Biały kolor tekstu */
+    font-size: 16px; /* Rozmiar czcionki */
+    padding: 10px 20px; /* Marginesy wewnętrzne */
+    border-radius: 8px; /* Zaokrąglone rogi */
+    cursor: pointer; /* Wskaźnik zmienia się na "rękę" po najechaniu */
+    transition: all 0.3s ease; /* Animacja przycisku */
+    font-family: Arial, sans-serif; /* Czcionka */
+    margin-top: 20px; /* Odstęp od innych elementów */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Lekki cień */
+}
+
+/* Efekt przycisku Gracza 1 po najechaniu */
+#joinPlayer1:hover {
+    background-color: #66BB6A; /* Jaśniejszy zielony */
+    border-color: #388E3C; /* Zielona obwódka */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Większy cień */
+}
+
+/* Efekt przycisku Gracza 1 po kliknięciu */
+#joinPlayer1:active {
+    background-color: #388E3C; /* Ciemniejszy zielony */
+    border-color: #2C6E2F; /* Ciemniejsza obwódka */
+    box-shadow: none; /* Brak cienia */
+}
+
+.hidden {
+    display: none;
+}
