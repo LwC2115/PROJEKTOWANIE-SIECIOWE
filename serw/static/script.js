@@ -44,18 +44,19 @@ fetch('/static/geojson.json')
         clickedCountry = feature.properties.name;
         clickedLayer = layer;
         sendCountryClick(clickedCountry);
-        // highlightCountry(layer,answear)
-
       });
     }
   }).addTo(map);
 })
 .catch(error => console.error('Błąd wczytywania pliku JSON:', error));
 
+
 // Połączenie z serwerem WebSocket
 const socket = io.connect('http://localhost:5000');
 let playerJoined = [false, false];  // Flagi sprawdzające, czy gracze dołączyli
 let gameStarted = false;
+let rolePlayer;
+const correctSound = new Audio('E:\SIECIOWE\PROJEKTOWANIE-SIECIOWE\serw\static\correct-sound.mp3');
 
 
 // Funkcja do wysyłania klikniętego kraju na serwer
@@ -66,11 +67,8 @@ function sendCountryClick(clickedCountry) {
     }
     socket.emit('country_clicked', { country: clickedCountry,role:rolePlayer });
 }
-let rolePlayer;
-
 socket.on('country_result', (data) => {
-  // Dynamiczne przypisanie boxów w zależności od roli gracza
-  // const isPlayerOne = rolePlayer === 1;
+
 
   const resultBoxSelf = document.getElementById('result1');
   const resultBoxOpponent = document.getElementById('result2');
@@ -83,8 +81,8 @@ socket.on('country_result', (data) => {
 
   // Sprawdzenie, czyja jest tura
   const isPlayerTurn = data.gameTurn === rolePlayer;
-
-  if (!isPlayerTurn) {
+  console.log(rolePlayer)
+  if (isPlayerTurn) {
     // Tura gracza
     if (data.correct) {
       resultBoxSelf.innerHTML = `Brawo! <span class="highlight-true">${data.country}</span> to poprawna odpowiedź!`;
@@ -95,6 +93,7 @@ socket.on('country_result', (data) => {
       resultBoxSelf.innerHTML = `Niestety, <span class="highlight-false">${data.country}</span> to błędna odpowiedź.`;
       countryNameBoxSelf.innerHTML ='Czekaj na swoja ture';
       countryNameBoxOpponent.innerHTML=`Przeciwnik musi kliknąć <span class="highlight">${data.newCountry}</span>`;
+      socket.emit('switchPlayer')
       highlightCountry(clickedLayer,false)
     }
   } else {
@@ -111,7 +110,6 @@ socket.on('country_result', (data) => {
     }
   }
   
-  // highlightCountry(data.layer,data.correct)
 });
 
 

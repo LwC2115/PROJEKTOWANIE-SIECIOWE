@@ -76,7 +76,6 @@ def handle_country_click(data):
         current_country = draw_new_country()
     else:
         points = player_points.get(player_id, 0)
-        game_turn = 1 if game_turn == 2 else 2
         
 
     # Wysyłanie odpowiedzi do gracza
@@ -91,19 +90,11 @@ def handle_country_click(data):
 
 @socketio.on('switchPlayer')
 def switchPlayer():
-    global current_country
-    # Sprawdzenie, czy obaj gracze dołączyli
-    if game_state['players_ready']:
-        # Zmiana tury
-        game_turn = 2 if game_turn == 1 else 1
-        # Emitowanie zmiany tury do wszystkich graczy
-        current_country = draw_new_country()
-        emit('gameInfo', {'gameTurn': game_turn, 'currentCountry': current_country})
-    else:
-        # Jeśli drugi gracz się nie dołączył, losowanie nowego kraju, ale nie zmiana tury
-        current_country = draw_new_country()
-        emit('gameInfo', {'gameTurn': game_turn, 'currentCountry': current_country})
-
+    global game_turn
+    game_turn = 1 if game_turn == 2 else 2
+    print(game_turn)
+    
+   
 
 
 
