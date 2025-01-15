@@ -28,7 +28,7 @@ game_turn=1
 
 
 # Wczytaj plik GeoJSON
-with open('e:/SIECIOWE/PROJEKTOWANIE-SIECIOWE/serw/geojson.json', 'r') as f:
+with open('./geojson.json', 'r') as f:
     countries_data = json.load(f)
 
 # Ekstrahujemy tylko nazwy krajów z GeoJSON
